@@ -7,7 +7,7 @@ import assert from './index'
 function getError(func: () => unknown): unknown {
   try {
     func()
-  } catch (error) {
+  } catch (error: unknown) {
     return error
   }
 }
@@ -62,6 +62,8 @@ describe('ts-http-assert', function () {
 
   it('ts-http-assert', function () {
     const a: unknown = 5
+    //@ts-expect-error: a is of unknown type
+    a.toFixed(0).should.be.equal('5')
     assert(a === 5)
     a.toFixed(0).should.be.equal('5')
   })
@@ -100,12 +102,16 @@ describe('ts-http-assert', function () {
 
   it('ts-http-assert.ok', function () {
     const a: unknown = 5
+    //@ts-expect-error: a is of unknown type
+    a.toFixed(0).should.be.equal('5')
     assert.ok(a === 5)
     a.toFixed(0).should.be.equal('5')
   })
 
   it('ts-http-assert.strictEqual', function () {
     const a: unknown = 5
+    //@ts-expect-error: a is of unknown type
+    a.toFixed(0).should.be.equal('5')
     assert.strictEqual(a, 5)
     a.toFixed(0).should.be.equal('5')
   })

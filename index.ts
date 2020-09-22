@@ -8,18 +8,11 @@
  */
 import httpAssert from 'http-assert'
 
-type Status = number
-type Message = string
-type Properties = { [key: string]: unknown }
-
 type CreateHttpErrorParameters =
-  | [Status, Message, Properties]
-  | [Status, Message]
-  | [Status, Properties]
-  | [Status]
-  | [Message, Properties]
-  | [Message]
-  | [Properties]
+  | [status?: number, message?: string, properties?: { [key: string]: unknown }]
+  | [status?: number, properties?: { [key: string]: unknown }]
+  | [message?: string, properties?: { [key: string]: unknown }]
+  | [properties?: { [key: string]: unknown }]
   | []
 
 /**
@@ -27,14 +20,6 @@ type CreateHttpErrorParameters =
  * is thrown that is constructed with the given `status`, `message`,
  * and `properties`.
  */
-function _assert(value: boolean, status: Status, message: Message, properties: Properties): asserts value
-function _assert(value: boolean, status: Status, message: Message): asserts value
-function _assert(value: boolean, status: Status, properties: Properties): asserts value
-function _assert(value: boolean, status: Status): asserts value
-function _assert(value: boolean, message: Message, properties: Properties): asserts value
-function _assert(value: boolean, message: Message): asserts value
-function _assert(value: boolean, properties: Properties): asserts value
-function _assert(value: boolean): asserts value
 function _assert(value: boolean, ...parameters: CreateHttpErrorParameters): asserts value {
   httpAssert(value, ...(parameters as never[]))
 }
@@ -45,14 +30,6 @@ function _assert(value: boolean, ...parameters: CreateHttpErrorParameters): asse
  * are not equal, an `HttpError` is thrown that is constructed with the
  * given `status`, `message`, and `properties`.
  */
-function deepEqual(a: unknown, b: unknown, status: Status, message: Message, properties: Properties): void
-function deepEqual(a: unknown, b: unknown, status: Status, message: Message): void
-function deepEqual(a: unknown, b: unknown, status: Status, properties: Properties): void
-function deepEqual(a: unknown, b: unknown, status: Status): void
-function deepEqual(a: unknown, b: unknown, message: Message, properties: Properties): void
-function deepEqual(a: unknown, b: unknown, message: Message): void
-function deepEqual(a: unknown, b: unknown, properties: Properties): void
-function deepEqual(a: unknown, b: unknown): void
 function deepEqual(a: unknown, b: unknown, ...parameters: CreateHttpErrorParameters): void {
   httpAssert.deepEqual(a, b, ...(parameters as never[]))
 }
@@ -63,14 +40,6 @@ function deepEqual(a: unknown, b: unknown, ...parameters: CreateHttpErrorParamet
  * is thrown that is constructed with the given `status`, `message`,
  * and `properties`.
  */
-function equal(a: unknown, b: unknown, status: Status, message: Message, properties: Properties): void
-function equal(a: unknown, b: unknown, status: Status, message: Message): void
-function equal(a: unknown, b: unknown, status: Status, properties: Properties): void
-function equal(a: unknown, b: unknown, status: Status): void
-function equal(a: unknown, b: unknown, message: Message, properties: Properties): void
-function equal(a: unknown, b: unknown, message: Message): void
-function equal(a: unknown, b: unknown, properties: Properties): void
-function equal(a: unknown, b: unknown): void
 function equal(a: unknown, b: unknown, ...parameters: CreateHttpErrorParameters): void {
   httpAssert.equal(a, b, ...(parameters as never[]))
 }
@@ -81,14 +50,6 @@ function equal(a: unknown, b: unknown, ...parameters: CreateHttpErrorParameters)
  * are equal, an `HttpError` is thrown that is constructed with the given
  * `status`, `message`, and `properties`.
  */
-function notDeepEqual(a: unknown, b: unknown, status: Status, message: Message, properties: Properties): void
-function notDeepEqual(a: unknown, b: unknown, status: Status, message: Message): void
-function notDeepEqual(a: unknown, b: unknown, status: Status, properties: Properties): void
-function notDeepEqual(a: unknown, b: unknown, status: Status): void
-function notDeepEqual(a: unknown, b: unknown, message: Message, properties: Properties): void
-function notDeepEqual(a: unknown, b: unknown, message: Message): void
-function notDeepEqual(a: unknown, b: unknown, properties: Properties): void
-function notDeepEqual(a: unknown, b: unknown): void
 function notDeepEqual(a: unknown, b: unknown, ...parameters: CreateHttpErrorParameters): void {
   httpAssert.notDeepEqual(a, b, ...(parameters as never[]))
 }
@@ -99,14 +60,6 @@ function notDeepEqual(a: unknown, b: unknown, ...parameters: CreateHttpErrorPara
  * thrown that is constructed with the given `status`, `message`, and
  * `properties`.
  */
-function notEqual(a: unknown, b: unknown, status: Status, message: Message, properties: Properties): void
-function notEqual(a: unknown, b: unknown, status: Status, message: Message): void
-function notEqual(a: unknown, b: unknown, status: Status, properties: Properties): void
-function notEqual(a: unknown, b: unknown, status: Status): void
-function notEqual(a: unknown, b: unknown, message: Message, properties: Properties): void
-function notEqual(a: unknown, b: unknown, message: Message): void
-function notEqual(a: unknown, b: unknown, properties: Properties): void
-function notEqual(a: unknown, b: unknown): void
 function notEqual(a: unknown, b: unknown, ...parameters: CreateHttpErrorParameters): void {
   httpAssert.notEqual(a, b, ...(parameters as never[]))
 }
@@ -116,14 +69,6 @@ function notEqual(a: unknown, b: unknown, ...parameters: CreateHttpErrorParamete
  * Comparison (`===`). If `a` and `b` are equal, an `HttpError` is thrown
  * that is constructed with the given `status`, `message`, and `properties`.
  */
-function notStrictEqual(a: unknown, b: unknown, status: Status, message: Message, properties: Properties): void
-function notStrictEqual(a: unknown, b: unknown, status: Status, message: Message): void
-function notStrictEqual(a: unknown, b: unknown, status: Status, properties: Properties): void
-function notStrictEqual(a: unknown, b: unknown, status: Status): void
-function notStrictEqual(a: unknown, b: unknown, message: Message, properties: Properties): void
-function notStrictEqual(a: unknown, b: unknown, message: Message): void
-function notStrictEqual(a: unknown, b: unknown, properties: Properties): void
-function notStrictEqual(a: unknown, b: unknown): void
 function notStrictEqual(a: unknown, b: unknown, ...parameters: CreateHttpErrorParameters): void {
   httpAssert.notStrictEqual(a, b, ...(parameters as never[]))
 }
@@ -133,14 +78,6 @@ function notStrictEqual(a: unknown, b: unknown, ...parameters: CreateHttpErrorPa
  * is thrown that is constructed with the given `status`, `message`,
  * and `properties`.
  */
-function ok(value: boolean, status: Status, message: Message, properties: Properties): asserts value
-function ok(value: boolean, status: Status, message: Message): asserts value
-function ok(value: boolean, status: Status, properties: Properties): asserts value
-function ok(value: boolean, status: Status): asserts value
-function ok(value: boolean, message: Message, properties: Properties): asserts value
-function ok(value: boolean, message: Message): asserts value
-function ok(value: boolean, properties: Properties): asserts value
-function ok(value: boolean): asserts value
 function ok(value: boolean, ...parameters: CreateHttpErrorParameters): asserts value {
   httpAssert.ok(value, ...(parameters as never[]))
 }
@@ -151,14 +88,6 @@ function ok(value: boolean, ...parameters: CreateHttpErrorParameters): asserts v
  * is thrown that is constructed with the given `status`, `message`,
  * and `properties`.
  */
-function strictEqual<T>(a: unknown, b: T, status: Status, message: Message, properties: Properties): asserts a is T
-function strictEqual<T>(a: unknown, b: T, status: Status, message: Message): asserts a is T
-function strictEqual<T>(a: unknown, b: T, status: Status, properties: Properties): asserts a is T
-function strictEqual<T>(a: unknown, b: T, status: Status): asserts a is T
-function strictEqual<T>(a: unknown, b: T, message: Message, properties: Properties): asserts a is T
-function strictEqual<T>(a: unknown, b: T, message: Message): asserts a is T
-function strictEqual<T>(a: unknown, b: T, properties: Properties): asserts a is T
-function strictEqual<T>(a: unknown, b: T): asserts a is T
 function strictEqual<T>(a: unknown, b: T, ...parameters: CreateHttpErrorParameters): asserts a is T {
   httpAssert.strictEqual(a, b, ...(parameters as never[]))
 }
